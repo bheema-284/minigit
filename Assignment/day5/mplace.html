@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./style/nav.css">
+</head>
+<body>
+     <div id="container"></div>
+    <h1>Profile Picture</h1>
+    <div id="data"></div>
+</body>
+</html>
+
+<script type="module" >
+import navbar from "./componets/navba.js"
+
+import getUser from "./script/getUser.js"
+
+let container = document.getElementById("container");
+
+container.innerHTML = navbar();
+
+var response;
+let input = document.getElementById("search-input");
+
+input.addEventListener("keypress",searchUser); 
+async function searchUser(event){
+
+     if(event.key === "Enter"){
+let query = input.value
+ response = await getUser(query)
+  console.log("response",response)
+
+let { avatar_url } = response;
+
+    document.getElementById("profile-img").src=avatar_url
+
+   
+
+     }
+   
+
+}
+
+
+input.addEventListener("keypress",dataUser);
+let data_div = document.getElementById("data"); 
+
+async function dataUser(event){
+
+     if(event.key === "Enter"){
+let query = input.value
+ response = await getUser(query)
+  console.log("response",response)
+
+let { avatar_url } = response;
+
+  let img_div =  document.getElementById("data");
+
+   let img = document.createElement("img");
+   img.src = response.avatar_url;   
+     img_div.append(img)
+     }
+   
+
+}
+</script>
